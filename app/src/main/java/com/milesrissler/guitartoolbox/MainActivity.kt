@@ -1,6 +1,5 @@
 package com.milesrissler.guitartoolbox
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -33,7 +32,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -110,7 +108,9 @@ fun MainContent(padding: Dp = 24.dp, height: Dp = 64.dp)
                         modifier = Modifier
                             .weight(1f),
                         onTextChange = { newText ->
-                            keyText.value = newText
+                            keyText.value = newText.replaceFirstChar {
+                                if (it.isLowerCase()) it.titlecase() else it.toString()
+                            }
                             updateResults()
                         }
                     )
